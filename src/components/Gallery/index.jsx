@@ -3,10 +3,11 @@ class Gallery extends Component {
   state = {
     images: [],
     inputSearch: '',
+    isModalOpen: false,
   };
-  //   async componentDidMount() {
-  //     this.fetchImages();
-  //   }
+  // async componentDidMount() {
+  //   this.fetchImages();
+  // }
 
   async componentDidUpdate(prevProps, prevState) {
     if (prevState.inputSearch !== this.state.inputSearch) {
@@ -38,30 +39,53 @@ class Gallery extends Component {
     const { value, name } = e.target;
     this.setState(prevstate => ({ ...prevstate, [name]: value }));
   };
+
+  handleOpenModal = () => {
+    this.setState(prevState => ({ isModalOpen: !prevState.isModalOpen }));
+  };
+
   render() {
     return (
-      <div>
-        <h1>szukam: {this.state.inputSearch}</h1>
+      <header>
+        {/* <h1>szukam: {this.state.inputSearch}</h1> */}
         <form onSubmit={this.handleSubmit}>
+          <button type="submit">
+            <span>Search</span>
+          </button>
           <input
             type="text"
+            autocomplete="off"
+            autofocus
             name="inputSearch"
             value={this.state.inputSearch}
             onChange={this.handleChange}
-            placeholder="szukaj"
           ></input>
-          <button type="submit">Szukaj</button>
         </form>
         {this.state.images.length > 0 ? (
           <div>
             {this.state.images.map(el => (
-              <img key={el.id} src={el.previewURL} alt={el.tags}></img>
+              <li>
+                <img key={el.id} src={el.webformatURL} alt={el.tags}></img>
+                <div>
+                  <h1>Tu jest Modal</h1>
+                  {!this.state.isModalOpen && (
+                    <button onClick={this.handleOpenModal}>modal</button>
+                  )}
+
+                  {this.state.isModalOpen && (
+                    <div>
+                      <div>ELO POKAZUJE SIE</div>
+                      <button onClick={this.handleOpenModal}>x</button>
+                    </div>
+                  )}
+                </div>
+              </li>
             ))}
           </div>
         ) : (
           <div>No results</div>
         )}
-      </div>
+      </header>
     );
   }
 }
