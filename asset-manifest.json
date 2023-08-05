@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/https://github.com/TamaraMurciaPienkowski/goit-react-hw-03-image-finder2/static/css/main.7acaea2f.css",
-    "main.js": "/https://github.com/TamaraMurciaPienkowski/goit-react-hw-03-image-finder2/static/js/main.86f5964b.js",
+    "main.js": "/https://github.com/TamaraMurciaPienkowski/goit-react-hw-03-image-finder2/static/js/main.dc8722b3.js",
     "index.html": "/https://github.com/TamaraMurciaPienkowski/goit-react-hw-03-image-finder2/index.html",
     "main.7acaea2f.css.map": "/https://github.com/TamaraMurciaPienkowski/goit-react-hw-03-image-finder2/static/css/main.7acaea2f.css.map",
-    "main.86f5964b.js.map": "/https://github.com/TamaraMurciaPienkowski/goit-react-hw-03-image-finder2/static/js/main.86f5964b.js.map"
+    "main.dc8722b3.js.map": "/https://github.com/TamaraMurciaPienkowski/goit-react-hw-03-image-finder2/static/js/main.dc8722b3.js.map"
   },
   "entrypoints": [
     "static/css/main.7acaea2f.css",
-    "static/js/main.86f5964b.js"
+    "static/js/main.dc8722b3.js"
   ]
 }
