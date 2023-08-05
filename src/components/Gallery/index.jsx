@@ -4,6 +4,7 @@ class Gallery extends Component {
     images: [],
     inputSearch: '',
     isModalOpen: false,
+    selectedImage: '',
   };
   // async componentDidMount() {
   //   this.fetchImages();
@@ -62,29 +63,28 @@ class Gallery extends Component {
         {this.state.images.length > 0 ? (
           <div>
             {this.state.images.map(el => (
-              <li>
-                <img key={el.id} src={el.webformatURL} alt={el.tags}></img>
-                <div>
-                  <h1>Tu jest Modal</h1>
-                  {!this.state.isModalOpen && (
-                    <button onClick={this.handleOpenModal}>modal</button>
-                  )}
-
-                  {this.state.isModalOpen && (
-                    <div>
-                      <div>
-                        <img
-                          key={el.id}
-                          src={el.largeImageURL}
-                          alt={el.tags}
-                        ></img>
-                      </div>
-                      <button onClick={this.handleOpenModal}>x</button>
-                    </div>
-                  )}
-                </div>
+              <li key={el.id}>
+                <img src={el.webformatURL} alt={el.tags}></img>
               </li>
             ))}
+            <div>
+              <h1>Tu jest Modal</h1>
+              {!this.state.isModalOpen && (
+                <button onClick={this.handleOpenModal}>modal</button>
+              )}
+
+              {this.state.isModalOpen && (
+                <div>
+                  <div>
+                    <img
+                      src={this.state.images[0].webformatURL}
+                      alt={this.state.images.tags}
+                    ></img>
+                  </div>
+                  <button onClick={this.handleOpenModal}>x</button>
+                </div>
+              )}
+            </div>
           </div>
         ) : (
           <div>No results</div>
