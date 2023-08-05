@@ -54,8 +54,6 @@ class Gallery extends Component {
           </button>
           <input
             type="text"
-            autocomplete="off"
-            autofocus
             name="inputSearch"
             value={this.state.inputSearch}
             onChange={this.handleChange}
@@ -74,7 +72,13 @@ class Gallery extends Component {
 
                   {this.state.isModalOpen && (
                     <div>
-                      <div>ELO POKAZUJE SIE</div>
+                      <div>
+                        <img
+                          key={el.id}
+                          src={el.largeImageURL}
+                          alt={el.tags}
+                        ></img>
+                      </div>
                       <button onClick={this.handleOpenModal}>x</button>
                     </div>
                   )}
