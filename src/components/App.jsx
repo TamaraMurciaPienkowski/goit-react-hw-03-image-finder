@@ -3,6 +3,7 @@ import Searchbar from './Searchbar';
 import ImageGallery from './ImageGallery';
 import Modal from './Modal';
 import Button from './Button';
+import { Loader } from './Loader';
 
 class App extends Component {
   state = {
@@ -13,6 +14,7 @@ class App extends Component {
     alt: '',
     imgagesrc: '',
     page: 2,
+    isLoading: false,
   };
 
   async componentDidMount() {
@@ -29,6 +31,7 @@ class App extends Component {
   }
 
   fetchImages = async () => {
+    this.setState({ isLoading: true });
     try {
       const { inputSearch } = this.state;
       const response = await fetch(
@@ -38,10 +41,13 @@ class App extends Component {
       this.setState(prevState => ({ ...prevState, images: data.hits }));
     } catch (error) {
       console.log('errr', error);
+    } finally {
+      this.setState({ isLoading: false });
     }
   };
 
   fetchMoreImages = async () => {
+    this.setState({ isLoading: true });
     try {
       const { inputSearch, page } = this.state;
       const nextPage = page + 1;
@@ -56,6 +62,8 @@ class App extends Component {
       }));
     } catch (error) {
       console.log('errr', error);
+    } finally {
+      this.setState({ isLoading: false });
     }
   };
 
@@ -82,10 +90,6 @@ class App extends Component {
           handleChange={this.handleChange}
           inputSearch={this.state.inputSearch}
         />
-        <ImageGallery
-          images={this.state.images}
-          handleOpenModal={this.handleOpenModal}
-        />
         {!this.state.isModalOpen}
         <Modal
           isModalOpen={this.state.isModalOpen}
@@ -93,6 +97,14 @@ class App extends Component {
           alt={this.alt}
           handleOpenModal={this.handleOpenModal}
         />
+        {this.state.isLoading ? (
+          <Loader />
+        ) : (
+          <ImageGallery
+            images={this.state.images}
+            handleOpenModal={this.handleOpenModal}
+          />
+        )}
         <Button fetchMoreImages={this.fetchMoreImages} />
       </div>
     );
