@@ -5,10 +5,12 @@ class Gallery extends Component {
     inputSearch: '',
     isModalOpen: false,
     selectedImage: '',
+    alt: '',
+    imgagesrc: '',
   };
-  // async componentDidMount() {
-  //   this.fetchImages();
-  // }
+  async componentDidMount() {
+    this.fetchImages();
+  }
 
   async componentDidUpdate(prevProps, prevState) {
     if (prevState.inputSearch !== this.state.inputSearch) {
@@ -41,8 +43,11 @@ class Gallery extends Component {
     this.setState(prevstate => ({ ...prevstate, [name]: value }));
   };
 
-  handleOpenModal = () => {
+  handleOpenModal = evt => {
+    this.alt = evt.target.dataset.alt;
+    this.imagesrc = evt.target.dataset.webformaturl;
     this.setState(prevState => ({ isModalOpen: !prevState.isModalOpen }));
+    console.log('jestem otwarty');
   };
 
   render() {
@@ -62,24 +67,25 @@ class Gallery extends Component {
         </form>
         {this.state.images.length > 0 ? (
           <div>
-            {this.state.images.map(el => (
-              <li key={el.id}>
-                <img src={el.webformatURL} alt={el.tags}></img>
-              </li>
-            ))}
+            <ul onClick={this.handleOpenModal}>
+              {this.state.images.map(el => (
+                <li key={el.id}>
+                  <img
+                    src={el.webformatURL}
+                    alt={el.tags}
+                    data-webformaturl={el.largeImageURL}
+                    data-alt={el.tags}
+                  ></img>
+                </li>
+              ))}
+            </ul>
             <div>
-              <h1>Tu jest Modal</h1>
-              {!this.state.isModalOpen && (
-                <button onClick={this.handleOpenModal}>modal</button>
-              )}
+              {!this.state.isModalOpen}
 
               {this.state.isModalOpen && (
                 <div>
                   <div>
-                    <img
-                      src={this.state.images[0].webformatURL}
-                      alt={this.state.images.tags}
-                    ></img>
+                    <img src={this.imagesrc} alt={this.alt}></img>
                   </div>
                   <button onClick={this.handleOpenModal}>x</button>
                 </div>
